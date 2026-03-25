@@ -1,0 +1,66 @@
+{
+  "date": "2026-03-25",
+  "date_display": "25/03/2026",
+  "exchange": {
+    "USD_BRL": 5.7123,
+    "EUR_BRL": 6.1234,
+    "USD_EUR": 0.9234,
+    "USD_GBP": 0.7890,
+    "date": "2026-03-25 00:00"
+  },
+  "parecer": "Aguardando primeira execução do digest...",
+  "frase": "\"Inteligência estratégica começa com os dados certos.\"",
+  "sections": {
+    "ia_tecnologia": {
+      "title": "IA & Tecnologia",
+      "emoji": "🤖",
+      "content": "_Aguardando dados..._"
+    },
+    "status_ia": {
+      "title": "Status da IA — Lançamentos & Rankings",
+      "emoji": "🧠",
+      "content": "_Aguardando dados..._"
+    },
+    "saas_produto": {
+      "title": "SaaS Vertical & Produto",
+      "emoji": "📦",
+      "content": "_Aguardando dados..._"
+    },
+    "negocios_smb": {
+      "title": "Negócios Físicos & SMB Tech",
+      "emoji": "🏪",
+      "content": "_Aguardando dados..._"
+    },
+    "venture_estrategia": {
+      "title": "Venture & Estratégia",
+      "emoji": "🚀",
+      "content": "_Aguardando dados..._"
+    },
+    "investimentos": {
+      "title": "Investimentos & Mercado",
+      "emoji": "💰",
+      "content": "_Aguardando dados..._"
+    },
+    "regulatorio": {
+      "title": "Regulatório & Política de IA",
+      "emoji": "⚖️",
+      "content": "_Aguardando dados..._"
+    },
+    "hacker_news": {
+      "title": "Hacker News",
+      "emoji": "🔶",
+      "content": "_Aguardando dados..._"
+    },
+    "github": {
+      "title": "GitHub Trending",
+      "emoji": "💻",
+      "content": "_Aguardando dados..._"
+    },
+    "reddit": {
+      "title": "Reddit — O que estão discutindo",
+      "emoji": "💬",
+      "content": "_Aguardando dados..._"
+    }
+  },
+  "books": "_Aguardando dados..._"
+}
