@@ -395,64 +395,171 @@ function BooksSection() {
 
 function Footer() {
   return (
-    <footer
-      style={{
-        borderTop: "1px solid var(--border)",
-        padding: "3rem 2rem",
-        marginTop: "4rem",
-      }}
-    >
+    <footer style={{ marginTop: "4rem" }}>
+
+      {/* ── Bloco Zeith Co + Curso ── */}
       <div
         style={{
-          maxWidth: "820px",
-          margin: "0 auto",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-          flexWrap: "wrap",
-          gap: "1rem",
+          borderTop: "1px solid var(--border)",
+          borderBottom: "1px solid var(--border)",
+          padding: "3.5rem 2rem",
         }}
       >
-        <div>
-          <p
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "1rem",
-              color: "var(--text-primary)",
-              marginBottom: "0.375rem",
-            }}
-          >
-            Zeith Co
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.8125rem",
-              color: "var(--text-secondary)",
-            }}
-          >
-            Desenvolvido por{" "}
+        <div
+          style={{
+            maxWidth: "820px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "3rem",
+          }}
+        >
+          {/* Zeith Co */}
+          <div>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.6875rem",
+                color: "var(--accent)",
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                marginBottom: "1rem",
+              }}
+            >
+              Sobre
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "1.25rem",
+                color: "var(--text-primary)",
+                marginBottom: "0.75rem",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Zeith Co
+            </p>
+            <p
+              style={{
+                fontSize: "0.875rem",
+                color: "var(--text-secondary)",
+                lineHeight: 1.7,
+                marginBottom: "1.25rem",
+              }}
+            >
+              Venture studio AI-first que projeta, constrói e entrega software
+              vertical para negócios físicos. Operamos onde IA para de ser
+              promessa e começa a gerar vantagem real.
+            </p>
             <a
               href="https://zeithco.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--accent)", textDecoration: "none" }}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.75rem",
+                color: "var(--accent)",
+                textDecoration: "none",
+                letterSpacing: "0.05em",
+              }}
             >
-              Leandro Manique
+              zeithco.com →
             </a>
-            {" "}· Curado por IA, todo dia
-          </p>
+          </div>
+
+          {/* Curso */}
+          <div>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.6875rem",
+                color: "var(--accent)",
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                marginBottom: "1rem",
+              }}
+            >
+              Formação
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "1.25rem",
+                color: "var(--text-primary)",
+                marginBottom: "0.75rem",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.3,
+              }}
+            >
+              Do Zero a Arquitetura de IA
+            </p>
+            <p
+              style={{
+                fontSize: "0.875rem",
+                color: "var(--text-secondary)",
+                lineHeight: 1.7,
+                marginBottom: "1.25rem",
+              }}
+            >
+              Aprenda a projetar e construir sistemas de IA do zero até
+              arquiteturas prontas para produção. Inscrições abertas.
+            </p>
+            <a
+              href="https://www.zeithco.com/formacao-ia"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-block",
+                background: "var(--accent)",
+                color: "#0a0a0a",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                padding: "0.625rem 1.25rem",
+                borderRadius: "3px",
+                textDecoration: "none",
+              }}
+            >
+              Ver inscrições
+            </a>
+          </div>
         </div>
-        <p
+      </div>
+
+      {/* ── Rodapé mínimo ── */}
+      <div style={{ padding: "1.5rem 2rem" }}>
+        <div
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.6875rem",
-            color: "var(--text-tertiary)",
+            maxWidth: "820px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "0.5rem",
           }}
         >
-          {digest.date_display}
-        </p>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6875rem",
+              color: "var(--text-tertiary)",
+            }}
+          >
+            Zeith Co · Curado por IA, todo dia
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6875rem",
+              color: "var(--text-tertiary)",
+            }}
+          >
+            {digest.date_display}
+          </p>
+        </div>
       </div>
+
     </footer>
   );
 }
