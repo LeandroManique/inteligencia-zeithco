@@ -35,6 +35,20 @@ const TAMANHOS = [
   "500+ pessoas",
 ];
 
+const FAIXAS_ETARIAS = [
+  "Até 18 anos",
+  "18 a 30 anos",
+  "30 a 55 anos",
+  "55 anos ou mais",
+];
+
+const GENEROS = [
+  "Homem",
+  "Mulher",
+  "Não-binário",
+  "Prefiro não informar",
+];
+
 export default function GateModal({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<"loading" | "gate" | "open">("loading");
   const [step, setStep] = useState<1 | 2>(1);
@@ -49,6 +63,8 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
     empresa: "",
     segmento: "",
     tamanho: "",
+    faixa_etaria: "",
+    genero: "",
   });
 
   useEffect(() => {
@@ -80,6 +96,8 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
       empresa: skip ? null : form.empresa.trim() || null,
       segmento: skip ? null : form.segmento || null,
       tamanho: skip ? null : form.tamanho || null,
+      faixa_etaria: skip ? null : form.faixa_etaria || null,
+      genero: skip ? null : form.genero || null,
     });
 
     setSending(false);
@@ -277,6 +295,24 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
                   onChange={(v) => set("tamanho", v)}
                   options={TAMANHOS}
                   placeholder="Número de colaboradores"
+                />
+              </Field>
+
+              <Field label="Faixa etária">
+                <Select
+                  value={form.faixa_etaria}
+                  onChange={(v) => set("faixa_etaria", v)}
+                  options={FAIXAS_ETARIAS}
+                  placeholder="Selecione"
+                />
+              </Field>
+
+              <Field label="Gênero com que se identifica">
+                <Select
+                  value={form.genero}
+                  onChange={(v) => set("genero", v)}
+                  options={GENEROS}
+                  placeholder="Selecione"
                 />
               </Field>
 
