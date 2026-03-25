@@ -50,10 +50,11 @@ const GENEROS = [
 ];
 
 export default function GateModal({ children }: { children: React.ReactNode }) {
-  const [status, setStatus] = useState<"loading" | "gate" | "open">("loading");
+  const [status, setStatus] = useState<"loading" | "gate" | "returning" | "open">("loading");
   const [step, setStep] = useState<1 | 2>(1);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [returnEmail, setReturnEmail] = useState("");
 
   const [form, setForm] = useState({
     nome: "",
@@ -111,11 +112,104 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
     setStatus("open");
   };
 
+  const handleReturn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!returnEmail.trim()) {
+      setError("Digite seu email.");
+      return;
+    }
+    setSending(true);
+    setError("");
+
+    const { error: err } = await supabase.from("inteligencia_cadastros").insert({
+      email: returnEmail.trim().toLowerCase(),
+      cargo: "Retorno",
+    });
+
+    setSending(false);
+
+    // 23505 = email já existe (usuário cadastrado) — acesso liberado
+    if (!err || err.code === "23505") {
+      localStorage.setItem(STORAGE_KEY, "1");
+      setStatus("open");
+      return;
+    }
+
+    setError("Email não encontrado. Faça o cadastro completo.");
+    setStatus("gate");
+  };
+
   if (status === "loading") {
     return <div style={{ background: "#0a0a0a", minHeight: "100vh" }} />;
   }
 
   if (status === "open") return <>{children}</>;
+
+  if (status === "returning") {
+    return (
+      <>
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 50,
+            background: "rgba(10,10,10,0.93)",
+            backdropFilter: "blur(14px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "1.5rem",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "460px",
+              background: "#0f0f0f",
+              border: "1px solid #1e1e1e",
+              borderRadius: "6px",
+              padding: "2.5rem",
+            }}
+          >
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.6875rem", color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "1rem" }}>
+              Zeith Co · Inteligência
+            </p>
+            <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "1.625rem", fontWeight: "normal", color: "var(--text-primary)", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "0.625rem" }}>
+              Bem-vindo de volta
+            </h2>
+            <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "1.75rem" }}>
+              Digite seu email para acessar.
+            </p>
+            <form onSubmit={handleReturn} style={{ display: "flex", flexDirection: "column", gap: "1.375rem" }}>
+              <Field label="Email">
+                <Input
+                  type="email"
+                  value={returnEmail}
+                  onChange={(v) => setReturnEmail(v)}
+                  placeholder="seu@email.com"
+                  autoFocus
+                />
+              </Field>
+              {error && <ErrorMsg>{error}</ErrorMsg>}
+              <SubmitBtn disabled={sending}>
+                {sending ? "Verificando..." : "Acessar →"}
+              </SubmitBtn>
+              <button
+                type="button"
+                onClick={() => { setStatus("gate"); setError(""); }}
+                style={{ background: "none", border: "none", color: "var(--text-tertiary)", fontSize: "0.8125rem", cursor: "pointer", fontFamily: "var(--font-sans)", padding: 0, textAlign: "left" }}
+              >
+                Primeiro acesso? Cadastre-se aqui
+              </button>
+            </form>
+          </div>
+        </div>
+        <div style={{ filter: "blur(4px)", pointerEvents: "none", userSelect: "none" }}>
+          {children}
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -258,6 +352,14 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
               {error && <ErrorMsg>{error}</ErrorMsg>}
 
               <SubmitBtn>Continuar →</SubmitBtn>
+
+              <button
+                type="button"
+                onClick={() => { setStatus("returning"); setError(""); }}
+                style={{ background: "none", border: "none", color: "var(--text-tertiary)", fontSize: "0.8125rem", cursor: "pointer", fontFamily: "var(--font-sans)", padding: 0, textAlign: "left" }}
+              >
+                Já me cadastrei → Entrar com email
+              </button>
 
               {/* Disclaimer */}
               <Disclaimer />
