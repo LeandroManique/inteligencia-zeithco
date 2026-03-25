@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import data from "../public/latest.json";
+import GateModal from "./components/GateModal";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface Section {
@@ -458,7 +459,7 @@ function Footer() {
 
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function HomePage() {
-  return (
+  const content = (
     <main style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <Nav />
       <Hero />
@@ -470,4 +471,6 @@ export default function HomePage() {
       <Footer />
     </main>
   );
+
+  return <GateModal>{content}</GateModal>;
 }
