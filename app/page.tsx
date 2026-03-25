@@ -142,6 +142,19 @@ function Hero() {
           </em>{" "}
           para quem decide.
         </h1>
+        <p
+          style={{
+            fontSize: "0.9375rem",
+            color: "var(--text-secondary)",
+            lineHeight: 1.75,
+            maxWidth: "560px",
+            marginBottom: "3rem",
+          }}
+        >
+          Todo dia, nossa IA vasculha centenas de fontes — tecnologia, IA, SaaS,
+          investimentos, câmbio e tendências globais — e entrega um briefing
+          estratégico para você tomar decisões com mais clareza e menos ruído.
+        </p>
       </div>
 
       <div
@@ -546,7 +559,7 @@ function Footer() {
               color: "var(--text-tertiary)",
             }}
           >
-            Zeith Co · Curado por IA, todo dia
+            Zeith Co · Curado pela nossa IA, todo dia
           </p>
           <p
             style={{
