@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
 
 const STORAGE_KEY = "zeith_intel_acesso";
@@ -35,29 +35,24 @@ const TAMANHOS = [
   "500+ pessoas",
 ];
 
-export default function GateModal({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function GateModal({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<"loading" | "gate" | "open">("loading");
   const [step, setStep] = useState<1 | 2>(1);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
-  const formRef = useRef<HTMLFormElement>(null);
 
   const [form, setForm] = useState({
     nome: "",
     email: "",
     cargo: "",
+    whatsapp: "",
     empresa: "",
     segmento: "",
     tamanho: "",
   });
 
   useEffect(() => {
-    const registered = localStorage.getItem(STORAGE_KEY);
-    setStatus(registered ? "open" : "gate");
+    setStatus(localStorage.getItem(STORAGE_KEY) ? "open" : "gate");
   }, []);
 
   const set = (field: string, value: string) =>
@@ -65,39 +60,31 @@ export default function GateModal({
 
   const handleStep1 = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.nome.trim() || !form.email.trim() || !form.cargo) {
-      setError("Preencha nome, email e cargo para continuar.");
+    if (!form.email.trim() || !form.cargo) {
+      setError("Email e cargo são obrigatórios.");
       return;
     }
     setError("");
     setStep(2);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const save = async (skip = false) => {
     setSending(true);
     setError("");
 
-    const { error: err } = await supabase
-      .from("inteligencia_cadastros")
-      .insert({
-        nome: form.nome.trim(),
-        email: form.email.trim().toLowerCase(),
-        cargo: form.cargo,
-        empresa: form.empresa.trim() || null,
-        segmento: form.segmento || null,
-        tamanho: form.tamanho || null,
-      });
+    const { error: err } = await supabase.from("inteligencia_cadastros").insert({
+      nome: form.nome.trim() || null,
+      email: form.email.trim().toLowerCase(),
+      cargo: form.cargo,
+      whatsapp: form.whatsapp.trim() || null,
+      empresa: skip ? null : form.empresa.trim() || null,
+      segmento: skip ? null : form.segmento || null,
+      tamanho: skip ? null : form.tamanho || null,
+    });
 
     setSending(false);
 
-    if (err) {
-      if (err.code === "23505") {
-        // email já existe — libera mesmo assim
-        localStorage.setItem(STORAGE_KEY, "1");
-        setStatus("open");
-        return;
-      }
+    if (err && err.code !== "23505") {
       setError("Erro ao salvar. Tente novamente.");
       return;
     }
@@ -107,29 +94,26 @@ export default function GateModal({
   };
 
   if (status === "loading") {
-    return (
-      <div
-        style={{ background: "#0a0a0a", minHeight: "100vh", display: "flex" }}
-      />
-    );
+    return <div style={{ background: "#0a0a0a", minHeight: "100vh" }} />;
   }
 
   if (status === "open") return <>{children}</>;
 
   return (
     <>
-      {/* Overlay com conteúdo desfocado atrás */}
+      {/* Overlay */}
       <div
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 50,
-          background: "rgba(10,10,10,0.92)",
-          backdropFilter: "blur(12px)",
+          background: "rgba(10,10,10,0.93)",
+          backdropFilter: "blur(14px)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           padding: "1.5rem",
+          overflowY: "auto",
         }}
       >
         <div
@@ -140,58 +124,52 @@ export default function GateModal({
             border: "1px solid #1e1e1e",
             borderRadius: "6px",
             padding: "2.5rem",
+            margin: "auto",
           }}
         >
           {/* Header */}
-          <div style={{ marginBottom: "2rem" }}>
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.6875rem",
-                color: "var(--accent)",
-                textTransform: "uppercase",
-                letterSpacing: "0.2em",
-                marginBottom: "1rem",
-              }}
-            >
-              Zeith Co · Inteligência
-            </p>
-            <h2
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "1.625rem",
-                fontWeight: "normal",
-                color: "var(--text-primary)",
-                lineHeight: 1.2,
-                letterSpacing: "-0.02em",
-                marginBottom: "0.75rem",
-              }}
-            >
-              {step === 1
-                ? "Acesso gratuito para líderes"
-                : "Nos conte um pouco mais"}
-            </h2>
-            <p
-              style={{
-                fontSize: "0.875rem",
-                color: "var(--text-secondary)",
-                lineHeight: 1.6,
-              }}
-            >
-              {step === 1
-                ? "Inteligência estratégica diária, curada por IA. Sem custo, sem spam."
-                : "Opcional — ajuda a personalizar o conteúdo futuro."}
-            </p>
-          </div>
-
-          {/* Step indicators */}
-          <div
+          <p
             style={{
-              display: "flex",
-              gap: "0.5rem",
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6875rem",
+              color: "var(--accent)",
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+              marginBottom: "1rem",
+            }}
+          >
+            Zeith Co · Inteligência
+          </p>
+
+          <h2
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "1.625rem",
+              fontWeight: "normal",
+              color: "var(--text-primary)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.02em",
+              marginBottom: "0.625rem",
+            }}
+          >
+            {step === 1 ? "Acesso gratuito para líderes" : "Perfil completo"}
+          </h2>
+
+          <p
+            style={{
+              fontSize: "0.875rem",
+              color: "var(--text-secondary)",
+              lineHeight: 1.6,
               marginBottom: "1.75rem",
             }}
           >
+            {step === 1
+              ? "Inteligência estratégica diária, curada por IA. Sem custo."
+              : "Opcional — ajuda a calibrar o conteúdo para o seu perfil."}
+          </p>
+
+          {/* Progress bar */}
+          <div style={{ display: "flex", gap: "0.5rem", marginBottom: "2rem" }}>
             {[1, 2].map((s) => (
               <div
                 key={s}
@@ -206,25 +184,28 @@ export default function GateModal({
             ))}
           </div>
 
-          {/* Step 1 */}
+          {/* ── Step 1 ── */}
           {step === 1 && (
-            <form onSubmit={handleStep1} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              <Field label="Nome completo *">
+            <form
+              onSubmit={handleStep1}
+              style={{ display: "flex", flexDirection: "column", gap: "1.375rem" }}
+            >
+              <Field label="Nome (opcional)">
                 <Input
                   type="text"
                   value={form.nome}
                   onChange={(v) => set("nome", v)}
-                  placeholder="Leandro Manique"
+                  placeholder="Como prefere ser chamado"
                   autoFocus
                 />
               </Field>
 
-              <Field label="Email profissional *">
+              <Field label="Email *">
                 <Input
                   type="email"
                   value={form.email}
                   onChange={(v) => set("email", v)}
-                  placeholder="leandro@empresa.com"
+                  placeholder="seu@email.com"
                 />
               </Field>
 
@@ -237,21 +218,46 @@ export default function GateModal({
                 />
               </Field>
 
+              <Field label="WhatsApp (opcional)">
+                <Input
+                  type="tel"
+                  value={form.whatsapp}
+                  onChange={(v) => set("whatsapp", v)}
+                  placeholder="+55 51 9 9999-9999"
+                />
+                <p
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--text-tertiary)",
+                    marginTop: "0.375rem",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Para ser avisado de novas ferramentas e iniciativas Zeith Co.
+                </p>
+              </Field>
+
               {error && <ErrorMsg>{error}</ErrorMsg>}
 
               <SubmitBtn>Continuar →</SubmitBtn>
+
+              {/* Disclaimer */}
+              <Disclaimer />
             </form>
           )}
 
-          {/* Step 2 */}
+          {/* ── Step 2 ── */}
           {step === 2 && (
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <form
+              onSubmit={(e) => { e.preventDefault(); save(); }}
+              style={{ display: "flex", flexDirection: "column", gap: "1.375rem" }}
+            >
               <Field label="Empresa">
                 <Input
                   type="text"
                   value={form.empresa}
                   onChange={(v) => set("empresa", v)}
-                  placeholder="Zeith Co"
+                  placeholder="Nome da empresa"
                   autoFocus
                 />
               </Field>
@@ -281,7 +287,6 @@ export default function GateModal({
                   type="button"
                   onClick={() => setStep(1)}
                   style={{
-                    flex: "0 0 auto",
                     padding: "0.75rem 1.25rem",
                     background: "transparent",
                     border: "1px solid #2a2a2a",
@@ -301,7 +306,8 @@ export default function GateModal({
 
               <button
                 type="button"
-                onClick={handleSubmit}
+                onClick={() => save(true)}
+                disabled={sending}
                 style={{
                   background: "none",
                   border: "none",
@@ -311,16 +317,19 @@ export default function GateModal({
                   textDecoration: "underline",
                   fontFamily: "var(--font-sans)",
                   padding: 0,
+                  textAlign: "left",
                 }}
               >
                 Pular e acessar sem preencher
               </button>
+
+              <Disclaimer />
             </form>
           )}
         </div>
       </div>
 
-      {/* Conteúdo desfocado atrás (preview) */}
+      {/* Conteúdo desfocado atrás */}
       <div style={{ filter: "blur(4px)", pointerEvents: "none", userSelect: "none" }}>
         {children}
       </div>
@@ -330,9 +339,27 @@ export default function GateModal({
 
 // ── Sub-components ──────────────────────────────────────────────────────────
 
+function Disclaimer() {
+  return (
+    <p
+      style={{
+        fontSize: "0.75rem",
+        color: "var(--text-tertiary)",
+        lineHeight: 1.6,
+        borderTop: "1px solid #1a1a1a",
+        paddingTop: "1rem",
+      }}
+    >
+      🔒 Seus dados são utilizados exclusivamente para entendermos o perfil do
+      nosso público e calibrar o conteúdo. Não compartilhamos com terceiros,
+      não usamos para publicidade e não enviamos spam.
+    </p>
+  );
+}
+
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
       <label
         style={{
           fontFamily: "var(--font-mono)",
@@ -350,11 +377,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function Input({
-  type,
-  value,
-  onChange,
-  placeholder,
-  autoFocus,
+  type, value, onChange, placeholder, autoFocus,
 }: {
   type: string;
   value: string;
@@ -388,10 +411,7 @@ function Input({
 }
 
 function Select({
-  value,
-  onChange,
-  options,
-  placeholder,
+  value, onChange, options, placeholder,
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -416,9 +436,7 @@ function Select({
         appearance: "none",
       }}
     >
-      <option value="" disabled>
-        {placeholder}
-      </option>
+      <option value="" disabled>{placeholder}</option>
       {options.map((o) => (
         <option key={o} value={o} style={{ background: "#0f0f0f", color: "#f0eee9" }}>
           {o}
@@ -429,9 +447,7 @@ function Select({
 }
 
 function SubmitBtn({
-  children,
-  disabled,
-  style,
+  children, disabled, style,
 }: {
   children: React.ReactNode;
   disabled?: boolean;
@@ -462,13 +478,7 @@ function SubmitBtn({
 
 function ErrorMsg({ children }: { children: React.ReactNode }) {
   return (
-    <p
-      style={{
-        fontSize: "0.8125rem",
-        color: "#f87171",
-        margin: 0,
-      }}
-    >
+    <p style={{ fontSize: "0.8125rem", color: "#f87171", margin: 0 }}>
       {children}
     </p>
   );
