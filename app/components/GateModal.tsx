@@ -55,6 +55,7 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [returnEmail, setReturnEmail] = useState("");
+  const [count, setCount] = useState<number | null>(null);
 
   const [form, setForm] = useState({
     nome: "",
@@ -70,6 +71,10 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setStatus(localStorage.getItem(STORAGE_KEY) ? "open" : "gate");
+    supabase
+      .from("inteligencia_cadastros")
+      .select("*", { count: "exact", head: true })
+      .then(({ count: n }) => { if (n) setCount(n); });
   }, []);
 
   const set = (field: string, value: string) =>
@@ -276,7 +281,9 @@ export default function GateModal({ children }: { children: React.ReactNode }) {
             }}
           >
             {step === 1
-              ? "Inteligência estratégica diária, curada por IA. Sem custo."
+              ? (count && count > 0
+                  ? `${count.toLocaleString("pt-BR")} líderes já acessam. Sem custo.`
+                  : "Inteligência estratégica diária, curada por IA. Sem custo.")
               : "Opcional — ajuda a calibrar o conteúdo para o seu perfil."}
           </p>
 
