@@ -483,7 +483,7 @@ function Footer() {
               Conhecer a Zeith Co
             </a>
             <a
-              href="https://wa.me/5551999999999?text=Vi%20o%20briefing%20da%20Zeith%20e%20quero%20saber%20mais"
+              href="https://wa.me/5551982994623?text=Vi%20o%20briefing%20da%20Zeith%20e%20quero%20saber%20mais"
               target="_blank"
               rel="noopener noreferrer"
               style={{
