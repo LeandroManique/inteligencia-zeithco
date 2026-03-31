@@ -410,115 +410,62 @@ function Footer() {
   return (
     <footer style={{ marginTop: "4rem" }}>
 
-      {/* ── Bloco Zeith Co + Curso ── */}
+      {/* ── CTA Zeith Co ── */}
       <div
         style={{
           borderTop: "1px solid var(--border)",
-          borderBottom: "1px solid var(--border)",
-          padding: "3.5rem 2rem",
+          padding: "4rem 2rem",
+          background: "var(--bg-subtle)",
         }}
       >
         <div
           style={{
             maxWidth: "820px",
             margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "3rem",
+            textAlign: "center",
           }}
         >
-          {/* Zeith Co */}
-          <div>
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.6875rem",
-                color: "var(--accent)",
-                textTransform: "uppercase",
-                letterSpacing: "0.15em",
-                marginBottom: "1rem",
-              }}
-            >
-              Sobre
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "1.25rem",
-                color: "var(--text-primary)",
-                marginBottom: "0.75rem",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Zeith Co
-            </p>
-            <p
-              style={{
-                fontSize: "0.875rem",
-                color: "var(--text-secondary)",
-                lineHeight: 1.7,
-                marginBottom: "1.25rem",
-              }}
-            >
-              Venture studio AI-first que projeta, constrói e entrega software
-              vertical para negócios físicos. Operamos onde IA para de ser
-              promessa e começa a gerar vantagem real.
-            </p>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6875rem",
+              color: "var(--accent)",
+              textTransform: "uppercase",
+              letterSpacing: "0.15em",
+              marginBottom: "1.5rem",
+            }}
+          >
+            Quem faz este briefing
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(1.5rem, 3vw, 2rem)",
+              color: "var(--text-primary)",
+              marginBottom: "1.25rem",
+              letterSpacing: "-0.02em",
+              lineHeight: 1.2,
+            }}
+          >
+            Seu negócio precisa de tecnologia e IA.
+            <br />
+            <em style={{ color: "var(--accent)" }}>A gente constrói.</em>
+          </p>
+          <p
+            style={{
+              fontSize: "0.9375rem",
+              color: "var(--text-secondary)",
+              lineHeight: 1.7,
+              maxWidth: "520px",
+              margin: "0 auto 2rem",
+            }}
+          >
+            A Zeith Co cria sites, landing pages, automações com IA e sistemas sob medida
+            para empresas brasileiras. Do briefing ao ar em dias, não semanas.
+          </p>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <a
-              href="https://zeithco.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                color: "var(--accent)",
-                textDecoration: "none",
-                letterSpacing: "0.05em",
-              }}
-            >
-              zeithco.com →
-            </a>
-          </div>
-
-          {/* Curso */}
-          <div>
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.6875rem",
-                color: "var(--accent)",
-                textTransform: "uppercase",
-                letterSpacing: "0.15em",
-                marginBottom: "1rem",
-              }}
-            >
-              Formação
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "1.25rem",
-                color: "var(--text-primary)",
-                marginBottom: "0.75rem",
-                letterSpacing: "-0.01em",
-                lineHeight: 1.3,
-              }}
-            >
-              Do Zero a Arquitetura de IA
-            </p>
-            <p
-              style={{
-                fontSize: "0.875rem",
-                color: "var(--text-secondary)",
-                lineHeight: 1.7,
-                marginBottom: "1.25rem",
-              }}
-            >
-              Aprenda a projetar e construir sistemas de IA do zero até
-              arquiteturas prontas para produção. Inscrições abertas.
-            </p>
-            <a
-              href="https://www.zeithco.com/formacao-ia"
+              href="https://www.zeithco.com/br"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -526,16 +473,104 @@ function Footer() {
                 background: "var(--accent)",
                 color: "#0a0a0a",
                 fontFamily: "var(--font-sans)",
-                fontSize: "0.875rem",
+                fontSize: "0.9375rem",
                 fontWeight: 600,
-                padding: "0.625rem 1.25rem",
+                padding: "0.75rem 1.75rem",
                 borderRadius: "3px",
                 textDecoration: "none",
               }}
             >
-              Ver inscrições
+              Conhecer a Zeith Co
+            </a>
+            <a
+              href="https://wa.me/5551999999999?text=Vi%20o%20briefing%20da%20Zeith%20e%20quero%20saber%20mais"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-block",
+                border: "1px solid var(--border)",
+                color: "var(--text-primary)",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.9375rem",
+                fontWeight: 500,
+                padding: "0.75rem 1.75rem",
+                borderRadius: "3px",
+                textDecoration: "none",
+              }}
+            >
+              Falar no WhatsApp
             </a>
           </div>
+        </div>
+      </div>
+
+      {/* ── Serviços grid ── */}
+      <div
+        style={{
+          borderTop: "1px solid var(--border)",
+          borderBottom: "1px solid var(--border)",
+          padding: "3rem 2rem",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "820px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "2rem",
+          }}
+        >
+          {[
+            { name: "Landing Page", price: "R$ 2.000", detail: "Pronta em 48h" },
+            { name: "Automação com IA", price: "R$ 3.000", detail: "Chatbots, emails, workflows" },
+            { name: "Site Institucional", price: "R$ 5.000", detail: "Multi-páginas, responsivo" },
+            { name: "Software sob Medida", price: "R$ 15.000", detail: "Produto digital customizado" },
+          ].map((s) => (
+            <a
+              key={s.name}
+              href="https://www.zeithco.com/br"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                padding: "1.25rem",
+                border: "1px solid var(--border)",
+                borderRadius: "4px",
+                transition: "border-color 0.2s",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.9375rem",
+                  color: "var(--text-primary)",
+                  fontWeight: 600,
+                  marginBottom: "0.25rem",
+                }}
+              >
+                {s.name}
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.8125rem",
+                  color: "var(--accent)",
+                  marginBottom: "0.25rem",
+                }}
+              >
+                a partir de {s.price}
+              </p>
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  color: "var(--text-tertiary)",
+                }}
+              >
+                {s.detail}
+              </p>
+            </a>
+          ))}
         </div>
       </div>
 
