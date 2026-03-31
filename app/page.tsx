@@ -351,7 +351,7 @@ function GitHubSection() {
         margin: "0 auto",
       }}
     >
-      <SectionLabel number="10" label="💻 GitHub Trending — O que está sendo construído" />
+      <SectionLabel number="10" label={`${sec.emoji} ${sec.title}`} />
       <div
         style={{
           marginTop: "1.75rem",
