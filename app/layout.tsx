@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Suspense } from "react";
+import { PostHogProvider } from "./posthog-provider";
+import { PostHogPageView } from "./posthog-pageview";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -49,7 +52,14 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${instrumentSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <PostHogProvider>
+          <Suspense fallback={null}>
+            <PostHogPageView />
+          </Suspense>
+          {children}
+        </PostHogProvider>
+      </body>
     </html>
   );
 }
