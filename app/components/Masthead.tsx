@@ -142,13 +142,13 @@ export function Masthead({ currentLang, currentDate }: MastheadProps) {
           }}>
             <span>INTELIGÊNCIA&nbsp;</span>
 
-            {/* Slot animado */}
+            {/* Slot animado — 7em cobre ARTIFICIAL em qualquer tamanho de fonte */}
             <span style={{
               position: 'relative',
               display: 'inline-block',
               overflow: 'hidden',
               height: '1.15em',
-              width: 'clamp(8rem, 22vw, 13rem)',
+              width: '7em',
               verticalAlign: 'middle',
             }}>
               <span ref={word0Ref} style={{
