@@ -1,6 +1,16 @@
-import { createClient } from "@supabase/supabase-js";
+// lib/supabase.ts
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+import { createClient } from '@supabase/supabase-js'
 
-export const supabase = createClient(url, key);
+const supabaseUrl  = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+// Client-side (anon key — usado no GateModal)
+export const supabase = createClient(supabaseUrl, supabaseAnon)
+
+// Server-side helper — fetching data nas Server Components
+export function createServerClient() {
+  return createClient(supabaseUrl, supabaseAnon, {
+    auth: { persistSession: false },
+  })
+}
