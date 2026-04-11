@@ -1,19 +1,19 @@
+/* app/globals.css */
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0a0a;
-  --bg-subtle: #111111;
-  --border: #1e1e1e;
-  --border-subtle: #161616;
-  --accent: #c9ff57;
-  --accent-dim: rgba(201, 255, 87, 0.12);
-  --accent-dim2: rgba(201, 255, 87, 0.06);
-  --text-primary: #f5f3ef;
-  --text-secondary: #d4cfc8;
-  --text-tertiary: #9a9188;
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --bg:             #faf8f4;
+  --bg-subtle:      #f3f0e8;
+  --border:         #e0dbd2;
+  --border-strong:  #1a1a1a;
+  --accent:         #1a3a5c;
+  --accent-light:   rgba(26, 58, 92, 0.08);
+  --text-primary:   #1a1a1a;
+  --text-secondary: #555555;
+  --text-tertiary:  #999999;
+  --font-serif:     'Playfair Display', Georgia, serif;
+  --font-sans:      'Inter', system-ui, sans-serif;
+  --font-mono:      'JetBrains Mono', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,98 +23,61 @@ html {
   color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: var(--bg);
-  min-height: 100vh;
-}
+body { background: var(--bg); min-height: 100vh; }
 
-/* ── PROSE (markdown content) ──────────────────── */
+/* Prose — conteúdo markdown */
 .prose p {
   color: var(--text-secondary);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.75;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.875rem;
 }
-
-.prose strong {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.prose em {
-  color: var(--text-tertiary);
-  font-style: italic;
-}
-
-.prose a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
-}
-.prose a:hover { border-color: var(--accent); }
-
-.prose ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
+.prose strong { color: var(--text-primary); font-weight: 600; }
+.prose em { color: var(--text-tertiary); font-style: italic; }
+.prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose a:hover { opacity: 0.75; }
+.prose ul { list-style: none; padding: 0; }
 .prose li {
   color: var(--text-secondary);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.7;
   padding: 0.75rem 0;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border);
+  padding-left: 1rem;
   position: relative;
-  padding-left: 1.25rem;
 }
-
 .prose li::before {
   content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
+  position: absolute; left: 0; top: 50%;
   transform: translateY(-50%);
-  width: 3px;
-  height: 3px;
+  width: 3px; height: 3px;
   background: var(--text-tertiary);
   border-radius: 50%;
 }
-
 .prose li:last-child { border-bottom: none; }
-
+.prose h2, .prose h3 {
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
 .prose code {
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--accent);
-  background: var(--accent-dim2);
-  padding: 0.1rem 0.4rem;
+  background: var(--accent-light);
+  padding: 0.1rem 0.35rem;
   border-radius: 3px;
 }
 
-.prose h1, .prose h2, .prose h3 {
-  color: var(--text-primary);
-  font-family: var(--font-serif);
-  font-weight: normal;
-}
-
-/* ── FADE IN ANIMATIONS ─────────────────────────── */
+/* Animações */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-.fade-up {
-  animation: fadeUp 0.6s ease forwards;
-}
+.fade-up { animation: fadeUp 0.5s ease forwards; }
 .delay-1 { animation-delay: 0.1s; opacity: 0; }
 .delay-2 { animation-delay: 0.2s; opacity: 0; }
 .delay-3 { animation-delay: 0.3s; opacity: 0; }
-.delay-4 { animation-delay: 0.4s; opacity: 0; }
-.delay-5 { animation-delay: 0.5s; opacity: 0; }
