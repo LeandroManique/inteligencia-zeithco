@@ -5,7 +5,6 @@ import { ExchangeTicker } from '../components/ExchangeTicker'
 import { HeroSection } from '../components/HeroSection'
 import { SectionCard } from '../components/SectionCard'
 import { GitHubRepos } from '../components/GitHubRepos'
-import GateModal from '../components/GateModal'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-static'
@@ -20,7 +19,7 @@ export default async function DatePage({ params }: Props) {
   const githubSection = edition.sections.find(s => s.key === 'github')
   const otherSections = edition.sections.filter(s => s.key !== 'github')
 
-  const content = (
+  return (
     <main style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <ExchangeTicker exchange={edition.exchange} />
       <Masthead currentLang="pt" currentDate={edition.date_display} />
@@ -44,6 +43,4 @@ export default async function DatePage({ params }: Props) {
       </footer>
     </main>
   )
-
-  return <GateModal>{content}</GateModal>
 }

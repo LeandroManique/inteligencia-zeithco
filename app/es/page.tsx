@@ -5,7 +5,6 @@ import { ExchangeTicker } from '../components/ExchangeTicker'
 import { HeroSection } from '../components/HeroSection'
 import { SectionCard } from '../components/SectionCard'
 import { GitHubRepos } from '../components/GitHubRepos'
-import GateModal from '../components/GateModal'
 
 export const revalidate = 3600
 
@@ -23,7 +22,7 @@ export default async function EsPage() {
   const githubSection = edition.sections.find(s => s.key === 'github')
   const otherSections = edition.sections.filter(s => s.key !== 'github')
 
-  const content = (
+  return (
     <main style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <ExchangeTicker exchange={edition.exchange} />
       <Masthead currentLang="es" currentDate={edition.date_display} />
@@ -40,6 +39,4 @@ export default async function EsPage() {
       </div>
     </main>
   )
-
-  return <GateModal>{content}</GateModal>
 }

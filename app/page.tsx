@@ -5,7 +5,6 @@ import { ExchangeTicker } from './components/ExchangeTicker'
 import { HeroSection } from './components/HeroSection'
 import { SectionCard } from './components/SectionCard'
 import { GitHubRepos } from './components/GitHubRepos'
-import GateModal from './components/GateModal'
 import { Edition } from '@/lib/types'
 
 export const revalidate = 3600  // fallback ISR 1h (on-demand via webhook)
@@ -61,6 +60,5 @@ function PageContent({ edition }: { edition: Edition }) {
 
 export default async function HomePage() {
   const edition = await getLatestEdition('pt')
-  const content = edition ? <PageContent edition={edition} /> : <NoContent />
-  return <GateModal>{content}</GateModal>
+  return edition ? <PageContent edition={edition} /> : <NoContent />
 }

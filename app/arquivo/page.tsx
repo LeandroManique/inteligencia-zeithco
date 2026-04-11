@@ -2,14 +2,13 @@
 import { getArchive } from '@/lib/getEdition'
 import { Masthead } from '../components/Masthead'
 import { ArchiveGrid } from '../components/ArchiveGrid'
-import GateModal from '../components/GateModal'
 
 export const revalidate = 3600
 
 export default async function ArquivoPage() {
   const { editions, total } = await getArchive('pt', 1, 30)
 
-  const content = (
+  return (
     <main style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <Masthead currentLang="pt" currentDate="" />
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '3rem 2rem' }}>
@@ -26,6 +25,4 @@ export default async function ArquivoPage() {
       </div>
     </main>
   )
-
-  return <GateModal>{content}</GateModal>
 }
