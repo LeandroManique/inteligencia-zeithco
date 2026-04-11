@@ -38,6 +38,17 @@ export function HeroSection({ edition }: Props) {
         }}>
           Análise Principal
         </span>
+
+        {/* Byline do autor */}
+        <span style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.68rem',
+          color: 'var(--text-tertiary)',
+          letterSpacing: '0.06em',
+          marginLeft: 'auto',
+        }}>
+          por <strong style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Leandro Mamique</strong>
+        </span>
       </div>
 
       {/* ── Banner de marca (sem foto aleatória) ─────────────── */}
