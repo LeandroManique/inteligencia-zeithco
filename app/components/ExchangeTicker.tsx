@@ -12,27 +12,53 @@ export function ExchangeTicker({ exchange }: Props) {
   ]
 
   return (
-    <div style={{ background: 'var(--accent)', padding: '0.4rem 2rem',
-                  display: 'flex', gap: '2.5rem', alignItems: 'center',
-                  overflowX: 'auto' }}>
-      {rates.map(r => (
-        <div key={r.label} style={{ display: 'flex', gap: '0.5rem',
-                                     alignItems: 'center', whiteSpace: 'nowrap' }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem',
-                         color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase',
-                         letterSpacing: '0.08em' }}>
+    <div style={{
+      background: 'var(--bg-ink)',
+      padding: '0.55rem 2rem',
+      display: 'flex',
+      gap: '0',
+      alignItems: 'center',
+      overflowX: 'auto',
+    }}>
+      {rates.map((r, i) => (
+        <div key={r.label} style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          whiteSpace: 'nowrap',
+          paddingRight: '2rem',
+          borderRight: i < rates.length - 1 ? '1px solid rgba(255,255,255,0.12)' : 'none',
+          marginRight: i < rates.length - 1 ? '2rem' : 0,
+        }}>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.65rem',
+            color: 'rgba(255,255,255,0.5)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+          }}>
             {r.label}
           </span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
-                         color: '#fff', fontWeight: 500 }}>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.8rem',
+            color: '#e8e0d0',
+            fontWeight: 600,
+            letterSpacing: '0.02em',
+          }}>
             {r.value}
           </span>
         </div>
       ))}
-      <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)',
-                     fontSize: '0.45rem', color: 'rgba(255,255,255,0.4)',
-                     letterSpacing: '0.06em', textTransform: 'uppercase',
-                     whiteSpace: 'nowrap' }}>
+      <span style={{
+        marginLeft: 'auto',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.6rem',
+        color: 'rgba(255,255,255,0.3)',
+        letterSpacing: '0.06em',
+        textTransform: 'uppercase',
+        whiteSpace: 'nowrap',
+      }}>
         {exchange.date} · open.er-api.com
       </span>
     </div>
